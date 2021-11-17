@@ -5,6 +5,8 @@ import * as Font from 'expo-font';
 // import { AppLoading } from 'expo'; // causing error
 import AppLoading from 'expo-app-loading'; 
 
+import ItemsNavigator from './navigation/ItemsNavigator';
+
 const fetchFonts = () => {
   return Font.loadAsync({
     'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
@@ -25,12 +27,7 @@ export default function App() {
     );
   }
 
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <ItemsNavigator />;
 }
 
 const styles = StyleSheet.create({
