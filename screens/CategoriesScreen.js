@@ -5,14 +5,12 @@ import {
   FlatList, 
   StyleSheet, 
   TouchableOpacity,
-  Platform
 } from 'react-native';
 //import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { CATEGORIES
  } from '../data/dummy-data';
 
-import Colors from '../constants/Colors';
 const CategoriesScreen = props => {
     //console.log(props);
  const renderGridItem = (itemData) => {
@@ -20,7 +18,9 @@ const CategoriesScreen = props => {
        <TouchableOpacity
         style={styles.gridItem} 
         onPress={() => {
-          props.navigation.navigate({routeName: 'CategoryItems'});
+          props.navigation.navigate({routeName: 'CategoryItems', params: {
+            categoryId: itemData.item.id
+          }});
         }}
        >
         <View>
@@ -37,13 +37,6 @@ const CategoriesScreen = props => {
     );
 };
 
-CategoriesScreen.navigationOptions = {
-    headerTitle: 'Categories',
-    headerStyle: {
-        backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : ''
-    },
-    headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor // white tint not working on the header
-};
 
 const styles = StyleSheet.create({
   screen: {
