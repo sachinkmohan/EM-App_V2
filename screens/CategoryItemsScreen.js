@@ -1,10 +1,71 @@
-import React from "react";
-import { ScrollView, View, Text, Image, StyleSheet } from "react-native";
+import React, { useEffect } from "react";
+import {
+	ScrollView,
+	View,
+	Text,
+	Image,
+	Button,
+	StyleSheet,
+} from "react-native";
+import * as Notifications from "expo-notifications";
+import * as Permissions from "expo-permissions";
+
+Notifications.setNotificationHandler({
+	handleNotification: async () => {
+		return {
+			shouldShowAlert: true,
+		};
+	},
+});
 
 import { CATEGORIES } from "../data/dummy-data";
 
 const CategoryItemsScreen = (props) => {
 	const catId = props.navigation.getParam("categoryId");
+
+	useEffect(() => {
+		Permissions.getAsync(Permissions.NOTIFICATIONS)
+			.then((statusObj) => {
+				if (statusObj.status !== "granted") {
+					return Permissions.askAsync(Permissions.NOTIFICATIONS);
+				}
+				return statusObj;
+			})
+			.then((statusObj) => {
+				if (statusObj.status !== "granted") {
+					return;
+				}
+			});
+	}, []);
+
+	useEffect(() => {
+		const backgroundSubscription =
+			Notifications.addNotificationResponseReceivedListener((response) => {
+				console.log(response);
+			});
+
+		const foregroundSubscription =
+			Notifications.addNotificationReceivedListener((notitification) => {
+				console.log(notitification);
+			});
+
+		return () => {
+			backgroundSubscription.remove();
+			foregroundSubscription.remove();
+		};
+	}, []);
+
+	const triggerNotificationHandler = () => {
+		Notifications.scheduleNotificationAsync({
+			content: {
+				title: "My first notification",
+				body: "This is the first one you are receiving",
+			},
+			trigger: {
+				seconds: 10,
+			},
+		});
+	};
 
 	const selectedCategory = CATEGORIES.find((cat) => cat.id === catId);
 
@@ -13,16 +74,21 @@ const CategoryItemsScreen = (props) => {
 			{/* <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} /> */}
 			<Text style={styles.title}>Content</Text>
 			{selectedCategory.firstContent.map((firstcontent) => (
-				<Text>{firstcontent}</Text>
+				<Text key={firstcontent}>{firstcontent}</Text>
 			))}
 			<Text style={styles.title}>Sub steps</Text>
 			{selectedCategory.secondContent.map((secondcontent) => (
-				<Text>{secondcontent}</Text>
+				<Text key={secondcontent}>{secondcontent}</Text>
 			))}
 			<View style={styles.screen}>
 				{/* <Text>The Categories Items Screen!</Text>
 				<Text>{selectedCategory.title}</Text>
 				<Text>{selectedCategory.id}</Text> */}
+				<Button
+					title="Trigger Notification"
+					onPress={triggerNotificationHandler}
+				/>
+				{/* to test the local notification  */}
 			</View>
 		</ScrollView>
 	);
