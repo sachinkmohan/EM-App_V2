@@ -1,8 +1,10 @@
 {
 	"expo": {
-		"name": "EM-App_V2",
-		"slug": "EM-App_V2",
+		"name": "Easy Malayalam - Easy & Smart",
+		"slug": "easy-malayalam-easy-and-smart",
 		"version": "1.0.0",
+		"privacy": "public",
+		"platforms": ["ios", "android"],
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
 		"splash": {
@@ -11,9 +13,9 @@
 			"backgroundColor": "#ffffff"
 		},
 		"updates": {
-			"fallbackToCacheTimeout": 0
+			"fallbackToCacheTimeout": 2000
 		},
-		"assetBundlePatterns": ["**/*"],
+		"assetBundlePatterns": ["assets/**/*"],
 		"ios": {
 			"supportsTablet": true
 		},
