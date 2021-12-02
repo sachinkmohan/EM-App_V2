@@ -14,15 +14,6 @@ import { CATEGORIES } from "../data/dummy-data";
 import CategoryGridTile from "../components/CategoryGridTile";
 
 const CategoriesScreen = (props) => {
-	//console.log(props);
-	const Apple = () => {
-		return (
-			<View style={styles.buttoncontainer}>
-				<Button title="Notify" />
-				renderItem={Apple}
-			</View>
-		);
-	};
 	const renderGridItem = (itemData) => {
 		return (
 			<CategoryGridTile

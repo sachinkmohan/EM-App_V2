@@ -6,7 +6,7 @@ import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { enableScreens } from "react-native-screens";
 
-import ItemsNavigator from "./navigation/ItemsNavigator";
+import AppNavigator from "./navigation/AppNavigator";
 
 enableScreens();
 
@@ -18,27 +18,30 @@ const fetchFonts = () => {
 };
 
 export default function App() {
-	const [fontLoaded, setFontLoaded] = useState(false);
-	if (!fontLoaded) {
-		return (
-			<AppLoading
-				startAsync={fetchFonts}
-				onFinish={() => {
-					setFontLoaded(true);
-				}}
-				onError={(error) => console.warn(error)} // add this
-			/>
-		);
-	}
-
-	return <ItemsNavigator />;
+	return <AppNavigator />;
 }
+// export default function App() {
+// 	const [fontLoaded, setFontLoaded] = useState(false);
+// 	if (!fontLoaded) {
+// 		return (
+// 			<AppLoading
+// 				startAsync={fetchFonts}
+// 				onFinish={() => {
+// 					setFontLoaded(true);
+// 				}}
+// 				onError={(error) => console.warn(error)} // add this
+// 			/>
+// 		);
+// 	}
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
-	},
-});
+// 	return <AppNavigator />;
+// }
+
+// const styles = StyleSheet.create({
+// 	container: {
+// 		flex: 1,
+// 		backgroundColor: "#fff",
+// 		alignItems: "center",
+// 		justifyContent: "center",
+// 	},
+// });

@@ -21,64 +21,8 @@ import {
 import { CATEGORIES } from "../data/dummy-data";
 
 const CategoryItemsScreen = (props) => {
-	const catId = props.navigation.getParam("categoryId");
-
-	// useEffect(() => {
-	// 	Permissions.getAsync(Permissions.NOTIFICATIONS)
-	// 		.then((statusObj) => {
-	// 			if (statusObj.status !== "granted") {
-	// 				return Permissions.askAsync(Permissions.NOTIFICATIONS);
-	// 			}
-	// 			return statusObj;
-	// 		})
-	// 		.then((statusObj) => {
-	// 			if (statusObj.status !== "granted") {
-	// 				throw new Error("Permission not granted");
-	// 			}
-	// 		})
-	// 		.then(() => {
-	// 			console.log("Getting token");
-	// 			return Notifications.getExpoPushTokenAsync();
-	// 		})
-	// 		.then((data) => {
-	// 			console.log(data);
-	// 		})
-	// 		.catch((err) => {
-	// 			console.log(err);
-	// 			return null;
-	// 		});
-	// }, []);
-
-	// useEffect(() => {
-	// 	const backgroundSubscription =
-	// 		Notifications.addNotificationResponseReceivedListener((response) => {
-	// 			console.log(response);
-	// 		});
-
-	// 	const foregroundSubscription =
-	// 		Notifications.addNotificationReceivedListener((notitification) => {
-	// 			console.log(notitification);
-	// 		});
-
-	// 	return () => {
-	// 		backgroundSubscription.remove();
-	// 		foregroundSubscription.remove();
-	// 	};
-	// }, []);
-	// Commenting push notifications for now.
-
-	const triggerNotificationHandler = () => {
-		// Notifications.scheduleNotificationAsync({
-		// 	content: {
-		// 		title: "My first notification",
-		// 		body: "This is the first one you are receiving",
-		// 	},
-		// 	trigger: {
-		// 		seconds: 10,
-		// 	},
-		// }); // Commenting as we are not using local notifications anymore.
-	};
-
+	// const catId = props.navigation.getParam("categoryId");
+	const catId = route.params.categoryId;
 	const selectedCategory = CATEGORIES.find((cat) => cat.id === catId);
 
 	return (
@@ -106,8 +50,9 @@ const CategoryItemsScreen = (props) => {
 	);
 };
 
-CategoryItemsScreen.navigationOptions = (navigationData) => {
-	const catId = navigationData.navigation.getParam("categoryId");
+//changed the first line here for RN 5
+export const screenOptions = (navigationData) => {
+	const catId = route.params.categoryId; // changed to RN 5 format
 	const selectedCategory = CATEGORIES.find((cat) => cat.id === catId);
 
 	return {
